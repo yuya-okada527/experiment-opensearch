@@ -47,9 +47,8 @@ GET /test-products/_mapping
 ##### TODO bulk インサートが動かない
 
 ```json
-POST /test-products/_doc/_bulk
-{"index": {"_id": "1"} }
+POST /test-products/_doc/1
 {"product_number": 1, "product_name": "商品1"}
-{"index": {"_id": "2"} }
-{"product_number": 2, "product_name": "商品2"}
+
+GET /test-products/_doc/1
 ```
