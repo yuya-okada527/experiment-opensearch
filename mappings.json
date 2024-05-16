@@ -1,0 +1,6 @@
+{
+  "properties": {
+    "product_number": { "type": "integer" },
+    "product_name": { "type": "keyword" }
+  }
+}
