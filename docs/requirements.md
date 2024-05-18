@@ -26,13 +26,27 @@ GET /test-products
 
 #### 作成
 
+↓ これだとうまくいかん・・・
+
 ```curl
-PUT /test-products/_mapping
+PUT /test-products
 {
-  "properties": {
-    "product_number": { "type": "integer" },
-    "product_name": { "type": "keyword" },
-    "is_enabled": { "type": "boolean" }
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "dynamic_string": {
+          "match": "*_str",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "product_number": { "type": "integer" },
+      "product_name": { "type": "keyword" },
+      "is_enabled": { "type": "boolean" }
+    }
   }
 }
 ```
@@ -49,7 +63,7 @@ GET /test-products/_mapping
 
 ```json
 POST /test-products/_doc/1
-{"product_number": 1, "product_name": "商品1", "is_enabled": true}
+{"product_number": 1, "product_name": "商品1", "is_enabled": true, "other_str": "hoge"}
 
 GET /test-products/_doc/1
 ```
