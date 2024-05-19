@@ -106,8 +106,78 @@ POST /test-products/_doc/1
     "fuga"
   ]
 }
+
+POST /test-products/_doc/2
+{
+  "product_number": 2,
+  "product_name": "商品2",
+  "is_enabled": true,
+  "other_str": "hoge",
+  "other_bool": false,
+  "localed_string": {
+    "ja": "日本語",
+    "en": "English"
+  },
+  "other_localed_string": {
+    "ja": "日本語",
+    "en": "English"
+  },
+  "array": [
+    "hoge",
+    "fuga"
+  ]
+}
+
+POST /test-products/_doc/3
+{
+  "product_number": 3,
+  "product_name": "商品3",
+  "is_enabled": true,
+  "other_str": "fuga",
+  "other_bool": false,
+  "localed_string": {
+    "ja": "日本語",
+    "en": "English"
+  },
+  "other_localed_string": {
+    "ja": "日本語",
+    "en": "English"
+  },
+  "array": [
+    "hoge",
+    "fuga"
+  ]
+}
 ```
 
 ```json
 GET /test-products/_doc/1
+```
+
+### ファセット検索
+
+```
+GET /test-products/_search
+{
+  "size": 0,
+  "aggs": {
+    "categories": {
+      "terms": {
+        "field": "other_bool",
+        "size": 10
+      }
+    }
+  },
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "other_str": "hoge"
+          }
+        }
+      ]
+    }
+  }
+}
 ```
