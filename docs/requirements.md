@@ -26,8 +26,6 @@ GET /test-products
 
 #### 作成
 
-↓ これだとうまくいかん・・・
-
 ```curl
 PUT /test-products
 {
@@ -40,12 +38,38 @@ PUT /test-products
             "type": "keyword"
           }
         }
+      },
+      {
+        "dynamic_boolean": {
+          "match": "*_bool",
+          "mapping": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "dynamic_localed_string": {
+          "match": "*_localed_string",
+          "mapping": {
+            "type": "object",
+            "properties": {
+              "ja": { "type": "keyword" },
+              "en": { "type": "keyword" }
+            }
+          }
+        }
       }
     ],
     "properties": {
       "product_number": { "type": "integer" },
       "product_name": { "type": "keyword" },
-      "is_enabled": { "type": "boolean" }
+      "is_enabled": { "type": "boolean" },
+      "localed_string": {
+        "properties": {
+          "ja": { "type": "keyword" },
+          "en": { "type": "keyword" }
+        }
+      }
     }
   }
 }
@@ -63,7 +87,27 @@ GET /test-products/_mapping
 
 ```json
 POST /test-products/_doc/1
-{"product_number": 1, "product_name": "商品1", "is_enabled": true, "other_str": "hoge"}
+{
+  "product_number": 1,
+  "product_name": "商品1",
+  "is_enabled": true,
+  "other_str": "hoge",
+  "other_bool": true,
+  "localed_string": {
+    "ja": "日本語",
+    "en": "English"
+  },
+  "other_localed_string": {
+    "ja": "日本語",
+    "en": "English"
+  },
+  "array": [
+    "hoge",
+    "fuga"
+  ]
+}
+```
 
+```json
 GET /test-products/_doc/1
 ```
