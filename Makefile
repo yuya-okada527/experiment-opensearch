@@ -4,6 +4,6 @@ ca:
 	git push origin head
 run:
 	docker compose down
-	docker compose up -d
+	docker compose up -d --remove-orphans
 remove:
 	docker compose down -v
