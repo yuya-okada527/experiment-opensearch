@@ -2,7 +2,7 @@
 
 ## 要件
 
-- dynamic templates
+- [dynamic templates](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/dynamic-templates.html)
 - nested fields
 - 各種のデータ型
 
