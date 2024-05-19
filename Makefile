@@ -5,3 +5,5 @@ ca:
 run:
 	docker compose down
 	docker compose up -d
+remove:
+	docker compose down -v
